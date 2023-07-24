@@ -2,7 +2,7 @@
 
 namespace Aquc.BiliCommits;
 
-public class BiliCommits
+public class BiliCommitsClass
 {
     public static async Task<string> GetReply(HttpClient http, string commitId, int index = 0)
     {
