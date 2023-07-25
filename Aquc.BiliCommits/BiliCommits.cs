@@ -6,11 +6,11 @@ public class BiliCommitsClass
 {
     public static async Task<string> GetReply(HttpClient http, string commitId, int index = 0)
     {
-        var response = await http.GetAsync($"https://api.bilibili.com/x/v2/reply/main?jsonp=jsonp&next=0&type=11&oid={commitId}&mode=2&plat=1");
+        var response = await http.GetAsync($"https://api.bilibili.com/x/v2/reply/main?mode=2&oid={commitId}&pagination_str=%7B%22offset%22:%22%22%7D&plat=1&seek_rpid=0&type=17");
+        //ncpe
         var replies = JsonNode.Parse(await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync())!["data"]!["replies"]!.AsArray();
-        http.Dispose();
         if (replies.Count > index)
-            return replies[index]!["content"]!["message"]!.ToString();
+            return replies[index]!["content"]!["message"]!.ToString().Replace("%",".");
         else
             throw new IndexOutOfRangeException();
     }
